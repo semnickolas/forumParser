@@ -10,6 +10,7 @@ namespace src\Core;
 
 use src\components\ConfigStorage;
 use GuzzleHttp\Client;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class Authenticator
@@ -33,13 +34,13 @@ class Authenticator
     public function __construct()
     {
         $this->configStorage = new ConfigStorage();
-        $this->client = new Client();
+        $this->client = new Client(['curl' => [CURLOPT_SSL_VERIFYPEER => false]]);
     }
 
     /**
-     *
+     * @return StreamInterface
      */
-    public function authenticate()
+    public function authenticate(): StreamInterface
     {
         $response = $this->client->post(
             $this->configStorage->getParam('loginUrl'),
@@ -47,10 +48,10 @@ class Authenticator
                 'form_params' => [
                     'vb_login_username' => $this->configStorage->getParam('login'),
                     'vb_login_pass' => $this->configStorage->getParam('pass'),
+                    'do' => 'login',
                 ],
             ]
         );
-        var_dump($response->getBody());
 
         return $response->getBody();
     }

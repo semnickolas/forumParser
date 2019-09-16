@@ -7,12 +7,16 @@
  */
 
 define('__ROOT_DIR__', __DIR__);
+/** Добавил приглушение нотайсов, что б не мусорить в консоль. Приложение простое, не виду смысла добавлять кучу валидаций */
+error_reporting(E_ERROR);
 
-require_once './vendor/autoload.php';
-require_once './src/Core/Authenticator.php';
+require_once __ROOT_DIR__ . '/vendor/autoload.php';
 
-use src\Core\Authenticator;
+use src\Core\Parser\Parser;
 
-$authenticator = new Authenticator();
+echo 'Parse process has been started' . PHP_EOL;
 
-$authenticator->authenticate();
+$parser = new Parser();
+$parser->parse();
+
+echo 'Parsing successfully completed' . PHP_EOL;
