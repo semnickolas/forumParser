@@ -3,7 +3,6 @@
 namespace src\Core\Parser;
 
 use DOMElement;
-use DOMNodeList;
 use GuzzleHttp\Client;
 use DOMDocument;
 use src\components\ConfigStorage;
@@ -53,7 +52,7 @@ class Parser
     }
 
     /**
-     *
+     * Common parse method
      */
     public function parse(): void
     {
@@ -82,6 +81,9 @@ class Parser
         $this->pageTitle = $titleBlock->item(0)->textContent;
     }
 
+    /**
+     * Parse all posts on page
+     */
     private function parsePosts(): void
     {
         $postNodeList = $this->dom->getElementById('postlist')->getElementsByTagName('li');

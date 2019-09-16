@@ -14,7 +14,7 @@ namespace src\components;
  */
 class ConfigStorage
 {
-    const CONFIG_PATH = __ROOT_DIR__ . '/config/config.php';
+    private const CONFIG_PATH = __ROOT_DIR__ . '/config/config.php';
     /**
      * @var array
      */
@@ -35,6 +35,6 @@ class ConfigStorage
      */
     public function getParam(String $key): String
     {
-        return array_key_exists($key, $this->config) ? $this->config[$key] : null;
+        return $this->config[$key] ?? null;
     }
 }
